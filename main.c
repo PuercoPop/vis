@@ -2394,8 +2394,6 @@ int main(int argc, char *argv[]) {
 			printf("vis %s%s%s%s%s%s%s\n", VERSION,
 			       CONFIG_CURSES ? " +curses" : "",
 			       CONFIG_LUA ? " +lua" : "",
-			       CONFIG_ACL ? " +acl" : "",
-			       CONFIG_SELINUX ? " +selinux" : "");
 			return 0;
 		} else {
 			fprintf(stderr, "Unknown command option: %s\n", argv[i]);

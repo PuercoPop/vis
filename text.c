@@ -15,12 +15,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
-#if CONFIG_ACL
-#include <sys/acl.h>
-#endif
-#if CONFIG_SELINUX
-#include <selinux/selinux.h>
-#endif
 
 #include "text.h"
 #include "text-util.h"
@@ -799,22 +793,6 @@ static bool preserve_acl(int src, int dest) {
 	return true;
 }
 
-static bool preserve_selinux_context(int src, int dest) {
-#if CONFIG_SELINUX
-	char *context = NULL;
-	if (!is_selinux_enabled())
-		return true;
-	if (fgetfilecon(src, &context) == -1)
-		return errno == ENOTSUP ? true : false;
-	if (fsetfilecon(dest, context) == -1) {
-		freecon(context);
-		return false;
-	}
-	freecon(context);
-#endif /* CONFIG_SELINUX */
-	return true;
-}
-
 /* Create a new file named `filename~` and try to preserve all important
  * meta data. After the file content has been written to this temporary
  * file, text_save_commit_atomic will atomically move it to  its final
@@ -852,8 +830,6 @@ static bool text_save_begin_atomic(TextSave *ctx) {
 	if ((ctx->fd = open(ctx->tmpname, O_CREAT|O_WRONLY|O_TRUNC, oldfd == -1 ? 0666 : oldmeta.st_mode)) == -1)
 		goto err;
 	if (oldfd != -1) {
-		if (!preserve_acl(oldfd, ctx->fd) || !preserve_selinux_context(oldfd, ctx->fd))
-			goto err;
 		/* change owner if necessary */
 		if (oldmeta.st_uid != getuid() && fchown(ctx->fd, oldmeta.st_uid, (uid_t)-1) == -1)
 			goto err;
