@@ -2615,15 +2615,6 @@ void vis_lua_init(Vis *vis) {
 
 	luaL_openlibs(L);
 
-#if CONFIG_LPEG
-	extern int luaopen_lpeg(lua_State *L);
-	lua_getglobal(L, "package");
-	lua_getfield(L, -1, "preload");
-	lua_pushcfunction(L, luaopen_lpeg);
-	lua_setfield(L, -2, "lpeg");
-	lua_pop(L, 2);
-#endif
-
 	/* remove any relative paths from lua's default package.path */
 	vis_lua_path_strip(vis);
 

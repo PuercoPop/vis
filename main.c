@@ -2394,7 +2394,6 @@ int main(int argc, char *argv[]) {
 			printf("vis %s%s%s%s%s%s%s\n", VERSION,
 			       CONFIG_CURSES ? " +curses" : "",
 			       CONFIG_LUA ? " +lua" : "",
-			       CONFIG_LPEG ? " +lpeg" : "",
 			       CONFIG_ACL ? " +acl" : "",
 			       CONFIG_SELINUX ? " +selinux" : "");
 			return 0;
