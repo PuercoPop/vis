@@ -2395,7 +2395,6 @@ int main(int argc, char *argv[]) {
 			       CONFIG_CURSES ? " +curses" : "",
 			       CONFIG_LUA ? " +lua" : "",
 			       CONFIG_LPEG ? " +lpeg" : "",
-			       CONFIG_TRE ? " +tre" : "",
 			       CONFIG_ACL ? " +acl" : "",
 			       CONFIG_SELINUX ? " +selinux" : "");
 			return 0;
