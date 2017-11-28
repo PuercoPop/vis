@@ -2391,9 +2391,9 @@ int main(int argc, char *argv[]) {
 		} else if (strcmp(argv[i], "--") == 0) {
 			break;
 		} else if (strcmp(argv[i], "-v") == 0) {
-			printf("vis %s%s%s%s%s%s%s\n", VERSION,
+			printf("vis %s%s%s\n", VERSION,
 			       CONFIG_CURSES ? " +curses" : "",
-			       CONFIG_LUA ? " +lua" : "",
+			       CONFIG_LUA ? " +lua" : "");
 			return 0;
 		} else {
 			fprintf(stderr, "Unknown command option: %s\n", argv[i]);
