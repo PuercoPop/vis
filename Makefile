@@ -1,11 +1,10 @@
--include config.mk
-
-REGEX_SRC ?= text-regex.c
+include config.mk
 
 SRC = array.c buffer.c libutf.c main.c map.c \
 	sam.c text.c text-motions.c text-objects.c text-util.c \
 	ui-terminal.c view.c vis.c vis-lua.c vis-modes.c vis-motions.c \
-	vis-operators.c vis-registers.c vis-marks.c vis-prompt.c vis-text-objects.c $(REGEX_SRC)
+	vis-operators.c vis-registers.c vis-marks.c vis-prompt.c \
+	vis-text-objects.c text-regex.c
 
 ELF = vis vis-menu vis-digraph
 EXECUTABLES = $(ELF) vis-clipboard vis-complete vis-open
@@ -16,13 +15,13 @@ DOCUMENTATION = LICENSE README.md
 
 VERSION = $(shell git describe --always --dirty 2>/dev/null || echo "v0.4-git")
 
-CONFIG_HELP ?= 1
-CONFIG_CURSES ?= 1
-CONFIG_LUA ?= 1
-CONFIG_LPEG ?= 0
-CONFIG_TRE ?= 0
-CONFIG_ACL ?= 0
-CONFIG_SELINUX ?= 0
+CONFIG_HELP = 1
+CONFIG_CURSES = 1
+CONFIG_LUA = 0
+CONFIG_LPEG = 0
+CONFIG_TRE = 0
+CONFIG_ACL = 0
+CONFIG_SELINUX = 0
 
 CFLAGS_STD ?= -std=c99 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -DNDEBUG
 CFLAGS_STD += -DVERSION=\"${VERSION}\"
